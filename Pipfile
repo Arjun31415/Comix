@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pyside6 = "*"
+requests = "*"
+bs4 = "*"
+
+[dev-packages]
+pynvim = "*"
+mypy = "*"
+
+[requires]
+python_version = "3.10"
