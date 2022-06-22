@@ -88,18 +88,12 @@ class MyWidget(QtWidgets.QWidget):
         self.text.setMovie(self.movie)
         self.movie.start()
         self.generateComicStrip(-1)
-        # comic = self.xkcd.getPreviousComic()
-        # self.text.setToolTip(comic[2])
-        # self.downloader.start_download(comic[1])
 
     @QtCore.Slot()
     def getNextComic(self):
         self.text.setMovie(self.movie)
         self.movie.start()
         self.generateComicStrip(1)
-        # comic = self.xkcd.getNextComic()
-        # self.text.setToolTip(comic[2])
-        # self.downloader.start_download(comic[1])
 
     def eventFilter(self, obj, ev):
         if (ev.type() == QtCore.QEvent.ToolTipChange):
