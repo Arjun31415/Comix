@@ -1,7 +1,6 @@
 import sys
-import random
 from PySide6 import QtCore, QtWidgets
-from PySide6.QtGui import QPixmap, QMovie, QHelpEvent, QTextObject, QTextDocument, Qt
+from PySide6.QtGui import QPixmap, QMovie, Qt
 from ImageDownloader import ImageDownloader
 from xkcd import Xkcd
 import html
