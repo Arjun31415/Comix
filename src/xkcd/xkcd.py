@@ -46,7 +46,8 @@ class Xkcd:
                                  headers=Xkcd.HEADERS)
         print(Xkcd.URL + f"{self.cur}")
         soup = BeautifulSoup(comicPage.content, "html.parser")
-        imageTag = soup.select_one("#comic > img")
+        imageTag = soup.select("#comic img")[0]
+        print(imageTag)
         if imageTag is None:
             raise ValueError("Image Tag not found")
         if type(imageTag) is list[str]:
