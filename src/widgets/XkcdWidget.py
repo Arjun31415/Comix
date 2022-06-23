@@ -1,10 +1,8 @@
-import sys
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtGui import QPixmap, QMovie, Qt
 from ImageDownloader import ImageDownloader
 from models.xkcd import Xkcd
 import html
-indow
 
 
 class XkcdWidget(QtWidgets.QWidget):
