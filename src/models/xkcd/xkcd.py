@@ -42,7 +42,7 @@ class Xkcd:
         if (no > self.latest):
             no = self.latest
         self.cur = no
-        comicPage = requests.get(Xkcd.URL + f"{self.cur}",
+        comicPage = requests.get(Xkcd.URL + str(self.cur),
                                  headers=Xkcd.HEADERS)
         print(Xkcd.URL + f"{self.cur}")
         soup = BeautifulSoup(comicPage.content, "html.parser")
@@ -72,3 +72,6 @@ class Xkcd:
 
     def getOldestComicNumber(self):
         return 1
+
+    def getCurrentComicUrl(self):
+        return Xkcd.URL + str(self.cur)

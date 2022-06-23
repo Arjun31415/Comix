@@ -1,5 +1,5 @@
 import sys
-from PySide6 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets, QtGui
 from widgets.XkcdWidget import XkcdWidget
 
 import signal
@@ -16,20 +16,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         self.xkcdWidget = XkcdWidget()
-        self.setCentralWidget(self.xkcdWidget)
+        self.tabs = QtWidgets.QTabWidget()
+        self.tabs.addTab(self.xkcdWidget, "XKCD")
+        self.setCentralWidget(self.tabs)
         self.setFixedSize(800, 600)
-
-
-class GracefulKiller:
-    kill_now = False
-
-    def __init__(self):
-        signal.signal(signal.SIGINT, self.exit_gracefully)
-        signal.signal(signal.SIGTERM, self.exit_gracefully)
-
-    def exit_gracefully(self, *args):
-        print("Got kill")
-        self.kill_now = True
 
 
 def main():

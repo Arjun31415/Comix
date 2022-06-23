@@ -1,8 +1,10 @@
 from PySide6 import QtCore, QtWidgets
-from PySide6.QtGui import QPixmap, QMovie, Qt
+from PySide6.QtGui import QDesktopServices, QPixmap, QMovie, Qt
 from ImageDownloader import ImageDownloader
 from models.xkcd import Xkcd
 import html
+
+import sys
 
 
 class XkcdWidget(QtWidgets.QWidget):
@@ -50,7 +52,7 @@ class XkcdWidget(QtWidgets.QWidget):
         self.text = QtWidgets.QLabel("")
 
         self.text.installEventFilter(self)
-
+        # self.text.clicked.connect(lambda self: print("Clicked"))
         # Loading Gif
         self.movie = QMovie("assets/pics/loading.gif")
         self.text.setMovie(self.movie)
@@ -96,7 +98,6 @@ class XkcdWidget(QtWidgets.QWidget):
 
     def eventFilter(self, obj, ev):
         if (ev.type() == QtCore.QEvent.ToolTipChange):
-            print(ev.type())
             if not isinstance(obj, QtWidgets.QWidget):
                 raise ValueError('QObject "{}" not a widget.'.format(obj))
             tooltip = obj.toolTip()
@@ -107,4 +108,10 @@ class XkcdWidget(QtWidgets.QWidget):
                 obj.setToolTip(tooltip)
                 return True
             return True
+        elif ev.type() == QtCore.QEvent.Type.MouseButtonDblClick:
+            QDesktopServices.openUrl(
+                QtCore.QUrl(self.xkcd.getCurrentComicUrl()))
+            # quit and focus the webbrowser
+            sys.exit(0)
+
         return False
