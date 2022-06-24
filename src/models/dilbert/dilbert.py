@@ -27,7 +27,7 @@ class Dilbert:
 
         # if the current day's comic is not yet uploaded then the url will be
         # https://dilbert.com/
-        if webpage.url != Dilbert.URL:
+        if webpage.url != Dilbert.URL + today.strftime("%Y-%m-%d"):
             self.latest = date.today() - timedelta(days=1)
         return
 
