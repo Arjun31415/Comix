@@ -1,8 +1,21 @@
 # Comix
 
 Qt Application to view your comics on desktop.
-<br>
-Currently supports [xkcd](https://xkcd.com/) and [Dilbert](https://dilbert.com/)
+
+# Contents:
+
+- [Features](#features)
+- [ScreenShots](#screenshots)
+- [Installation](#installation)
+- [Customization](#customization)
+- [Known Issues](#known-issues)
+
+## Features
+
+- Currently supports [xkcd](https://xkcd.com/) and [Dilbert](https://dilbert.com/)
+- Appears in a floating window in window managers such as i3 and bspwm.
+- Double click on comic will open it in web browser.
+- Scrollable area for image.
 
 ## ScreenShots
 
