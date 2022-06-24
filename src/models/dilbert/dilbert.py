@@ -20,9 +20,6 @@ class Dilbert:
     }
     cur = date.today()
 
-    # def __post_init__(self):
-    #     self.getLatest()
-
     def getLatest(self) -> None:
         today = date.today()
         webpage = requests.get(Dilbert.URL + today.strftime("%Y-%m-%d"),

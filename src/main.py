@@ -17,14 +17,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.widgets = [XkcdWidget(), DilbertWidget()]
         self.tabNames = ["XKCD", "Dilbert"]
-        # self.xkcdWidget = XkcdWidget()
-        # self.dilbertWidget = DilbertWidget()
         self.tabs = QtWidgets.QTabWidget()
         self.tabs.setDocumentMode(True)
         self.installEventFilter(self)
-
-        # self.tabs.setVerticalScrollMode(
-        #     QtWidgets.QAbstractItemView.ScrollPerPixel)
         self.scrollAreas = []
         for i in range(0, len(self.widgets)):
             self.scrollAreas.append(QtWidgets.QScrollArea(self))

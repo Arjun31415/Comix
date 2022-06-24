@@ -3,7 +3,6 @@ from PySide6.QtGui import QDesktopServices, QPixmap, QMovie, Qt
 from ImageDownloader import ImageDownloader
 from models.xkcd import Xkcd
 import html
-
 import sys
 
 
@@ -11,16 +10,10 @@ class XkcdWidget(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        # self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        # self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.xkcd = Xkcd()
         self.gotLatest = False
         self.initializedUi = False
 
-        # self.initUI()
-
-        # layout.addWidget(self.movie, 0, 0, 5, 5)
-        # self.button.clicked.connect(self.magic)
     def getLatest(self):
         if self.gotLatest is False:
             self.xkcd.getLatest()
@@ -67,17 +60,15 @@ class XkcdWidget(QtWidgets.QWidget):
         self.nextButton.clicked.connect(self.getNextComic)
 
         # Main Comic Label
-        # self.text = QtWidgets.QLabel("", alignment=QtCore.Qt.AlignCenter)
         self.text = QtWidgets.QLabel("")
-
+        # Event Filter
         self.text.installEventFilter(self)
-        # self.text.clicked.connect(lambda self: print("Clicked"))
+
         # Loading Gif
         self.movie = QMovie("assets/pics/loading.gif")
         self.text.setMovie(self.movie)
         self.movie.start()
-        # self.scrollArea = QtWidgets.QScrollArea()
-        # self.scrollArea.setWidget(self.text)
+
         # ImageDownloader
         self.downloader = ImageDownloader()
         self.downloader.finished.connect(self.handleFinished)

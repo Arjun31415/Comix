@@ -3,7 +3,6 @@ from PySide6.QtGui import QDesktopServices, QPixmap, QMovie, Qt
 from ImageDownloader import ImageDownloader
 from models.dilbert import Dilbert
 import html
-
 import sys
 
 
@@ -13,12 +12,8 @@ class DilbertWidget(QtWidgets.QWidget):
         super().__init__(parent)
         self.gotLatest = False
         self.initializedUi = False
-        # self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        # self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.dilbert = Dilbert()
-        # self.initUI()
-        # layout.addWidget(self.movie, 0, 0, 5, 5)
-        # self.button.clicked.connect(self.magic)
+
     def __setlayout(self):
         layout = QtWidgets.QGridLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -67,8 +62,8 @@ class DilbertWidget(QtWidgets.QWidget):
         # Main Comic Label
         self.text = QtWidgets.QLabel("")
 
+        # Event Filter
         self.text.installEventFilter(self)
-        # self.text.clicked.connect(lambda self: print("Clicked"))
         # Loading Gif
         self.movie = QMovie("assets/pics/loading.gif")
         self.text.setMovie(self.movie)
