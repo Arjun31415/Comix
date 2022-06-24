@@ -3,6 +3,9 @@ QTabWidget::pane {
     border:0;
 }
 
-QTabBar::tab {
+/* QTabBar::tab { */
+/*     background: transparent; */
+/* } */
+QScrollArea, #comicViewPort {
     background: transparent;
 }

@@ -6,8 +6,6 @@ from widgets.XkcdWidget import XkcdWidget
 import signal
 
 
-# BUG:
-# 1. https://xkcd.com/2613/ image is not fully seen in the window
 class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
@@ -23,6 +21,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.scrollAreas = []
         for i in range(0, len(self.widgets)):
             self.scrollAreas.append(QtWidgets.QScrollArea(self))
+            self.scrollAreas[i].viewport().setObjectName("comicViewPort")
             self.scrollAreas[i].setWidget(self.widgets[i])
             self.tabs.addTab(self.scrollAreas[i], self.tabNames[i])
         self.tabs.currentChanged.connect(self.initWidget)
@@ -45,6 +44,9 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
     window.show()
+    with open("src/styles.qss", "r") as f:
+        _style = f.read()
+        app.setStyleSheet(_style)
     app.exec()
 
 
