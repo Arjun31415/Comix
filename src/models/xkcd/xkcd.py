@@ -18,8 +18,8 @@ class Xkcd:
     }
     cur = -1
 
-    def __post_init__(self):
-        self.getLatest()
+    # def __post_init__(self):
+    #     self.getLatest()
 
     def getLatest(self):
         webpage = requests.get(Xkcd.URL, headers=Xkcd.HEADERS)

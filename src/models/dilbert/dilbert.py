@@ -20,8 +20,8 @@ class Dilbert:
     }
     cur = date.today()
 
-    def __post_init__(self):
-        self.getLatest()
+    # def __post_init__(self):
+    #     self.getLatest()
 
     def getLatest(self) -> None:
         today = date.today()
@@ -31,7 +31,7 @@ class Dilbert:
         # if the current day's comic is not yet uploaded then the url will be
         # https://dilbert.com/
         if webpage.url != Dilbert.URL:
-            latest = date.today() - timedelta(days=1)
+            self.latest = date.today() - timedelta(days=1)
         return
 
     def getComic(self, no: None | date = None) -> Tuple[date, str, str]:

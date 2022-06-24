@@ -1,29 +1,34 @@
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtGui import QDesktopServices, QPixmap, QMovie, Qt
 from ImageDownloader import ImageDownloader
-from models.xkcd import Xkcd
+from models.dilbert import Dilbert
 import html
 
 import sys
 
 
-class XkcdWidget(QtWidgets.QWidget):
+class DilbertWidget(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        # self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        # self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        self.xkcd = Xkcd()
         self.gotLatest = False
         self.initializedUi = False
-
+        # self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        # self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.dilbert = Dilbert()
         # self.initUI()
-
         # layout.addWidget(self.movie, 0, 0, 5, 5)
         # self.button.clicked.connect(self.magic)
+    def __setlayout(self):
+        layout = QtWidgets.QGridLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
+        self.setLayout(layout)
+        self.myLayout = layout
+
     def getLatest(self):
         if self.gotLatest is False:
-            self.xkcd.getLatest()
+            self.dilbert.getLatest()
         self.gotLatest = True
 
     def forceGetLatest(self):
@@ -34,22 +39,15 @@ class XkcdWidget(QtWidgets.QWidget):
         self.initializedUi = False
         self.initUI()
 
-    def __setlayout(self):
-        layout = QtWidgets.QGridLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
-        self.setLayout(layout)
-        self.myLayout = layout
-
     def generateComicStrip(self, cur: int) -> None:
         if (type(cur) is not int):
             raise ValueError(" cur must be int got: %s" % (type(cur)))
         if (cur == 0):
-            comic = self.xkcd.getComic()
+            comic = self.dilbert.getComic()
         elif (cur == 1):
-            comic = self.xkcd.getNextComic()
+            comic = self.dilbert.getNextComic()
         elif (cur == -1):
-            comic = self.xkcd.getPreviousComic()
+            comic = self.dilbert.getPreviousComic()
         else:
             raise ValueError("cur must be -1,0 or 1, got value: %d" % cur)
         self.text.setToolTip(comic[2])
@@ -67,7 +65,6 @@ class XkcdWidget(QtWidgets.QWidget):
         self.nextButton.clicked.connect(self.getNextComic)
 
         # Main Comic Label
-        # self.text = QtWidgets.QLabel("", alignment=QtCore.Qt.AlignCenter)
         self.text = QtWidgets.QLabel("")
 
         self.text.installEventFilter(self)
@@ -76,8 +73,7 @@ class XkcdWidget(QtWidgets.QWidget):
         self.movie = QMovie("assets/pics/loading.gif")
         self.text.setMovie(self.movie)
         self.movie.start()
-        # self.scrollArea = QtWidgets.QScrollArea()
-        # self.scrollArea.setWidget(self.text)
+
         # ImageDownloader
         self.downloader = ImageDownloader()
         self.downloader.finished.connect(self.handleFinished)
@@ -89,16 +85,22 @@ class XkcdWidget(QtWidgets.QWidget):
         self.myLayout.addWidget(self.prevButton, 11, 0)
         self.initializedUi = True
 
+    @QtCore.Slot()
+    def magic(self):
+        pass
+
     def handleFinished(self, image):
         self.movie.stop()
         self.text.setPixmap(QPixmap.fromImage(image))
         self.nextButton.setDisabled(False)
         self.prevButton.setDisabled(False)
-        if (self.xkcd.getCurrentComicNumber() ==
-                self.xkcd.getLatestComicNumber()):
+        print("Curr Comic: ", self.dilbert.getCurrentComicNumber())
+        print("Latest Comic: ", self.dilbert.getLatestComicNumber())
+        if (self.dilbert.getCurrentComicNumber() ==
+                self.dilbert.getLatestComicNumber()):
             self.nextButton.setDisabled(True)
-        if (self.xkcd.getCurrentComicNumber() ==
-                self.xkcd.getOldestComicNumber()):
+        if (self.dilbert.getCurrentComicNumber() ==
+                self.dilbert.getOldestComicNumber()):
             self.prevButton.setDisabled(True)
 
     @QtCore.Slot()
@@ -127,7 +129,7 @@ class XkcdWidget(QtWidgets.QWidget):
             return True
         elif ev.type() == QtCore.QEvent.Type.MouseButtonDblClick:
             QDesktopServices.openUrl(
-                QtCore.QUrl(self.xkcd.getCurrentComicUrl()))
+                QtCore.QUrl(self.dilbert.getCurrentComicUrl()))
             # quit and focus the webbrowser
             sys.exit(0)
 
