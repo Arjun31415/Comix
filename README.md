@@ -1,6 +1,8 @@
 # Comix
 
 Qt Application to view your comics on desktop.
+<br>
+Currently supports [xkcd](https://xkcd.com/) and [Dilbert](https://dilbert.com/)
 
 ## ScreenShots
 
@@ -25,3 +27,7 @@ Qt Application to view your comics on desktop.
 
 You can change the loading gif by modifying `assets/pics/loading.gif`
 The entire application styles can be modified by changing `src/styles.qss` file.
+
+## Known Issues
+
+- Inital loadtime is a bit slow
