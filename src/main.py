@@ -7,7 +7,6 @@ import signal
 
 
 class MainWindow(QtWidgets.QMainWindow):
-
     def __init__(self):
 
         super().__init__()
@@ -29,7 +28,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setFixedSize(800, 600)
 
     def eventFilter(self, obj, ev):
-        if (ev.type() == QtCore.QEvent.Show):
+        if ev.type() == QtCore.QEvent.Show:
             self.initWidget(0)
         return False
 
@@ -50,5 +49,5 @@ def main():
     app.exec()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
